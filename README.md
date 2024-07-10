@@ -18,7 +18,23 @@ Run `npx nx serve backend` to start the development server. Happy coding!
 
 Run `npx nx build backend` to build the application. The build artifacts are stored in the output directory (e.g. `dist/` or `build/`), ready to be deployed.
 
-## Running tasks
+### Running tasks
+
+## Prisma scripts
+
+Run this scriipt for every change inside the schema model
+
+```
+npx prisma migrate dev
+```
+
+turn your database schema into a Prisma schema
+
+```
+prisma db pull
+```
+
+## NX speciific scripts
 
 To execute tasks with Nx use the following syntax:
 

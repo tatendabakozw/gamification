@@ -1,8 +1,14 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from '@gamification/prisma-db';
 
 @Injectable()
 export class AppService {
-  getData(): { message: string } {
-    return ({ message: 'Hello API' });
+  constructor(private prisma: PrismaService) {}
+  getData() {
+    return this.prisma.product.findMany();
+  }
+
+  addProduct(dto: any) {
+    return this.prisma.product.create({ data: dto });
   }
 }
