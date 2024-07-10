@@ -49,6 +49,21 @@
         "runIosTargetName": "run-ios",
         "runAndroidTargetName": "run-android"
       }
+    },
+    {
+      "plugin": "@nx/next/plugin",
+      "options": {
+        "startTargetName": "start",
+        "buildTargetName": "build",
+        "devTargetName": "dev",
+        "serveStaticTargetName": "serve-static"
+      }
+    },
+    {
+      "plugin": "@nx/playwright/plugin",
+      "options": {
+        "targetName": "playwright:e2e"
+      }
     }
   ],
   "nxCloudAccessToken": "NmYzOGU5M2EtNzMyNS00YzAwLWE0MzMtNjY2ZDhkN2NiYmM5fHJlYWQtd3JpdGU=",
@@ -56,6 +71,14 @@
     "e2e": {
       "cache": true,
       "inputs": ["default", "^production"]
+    }
+  },
+  "generators": {
+    "@nx/next": {
+      "application": {
+        "style": "tailwind",
+        "linter": "eslint"
+      }
     }
   }
 }
