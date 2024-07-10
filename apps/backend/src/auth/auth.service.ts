@@ -1,51 +1,51 @@
-import {
-  BadRequestException,
-  ConflictException,
-  Injectable,
-} from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { AuthPayloadDto } from './dto/auth.dto';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '@gamification/prisma-db';
-import { Prisma } from '@prisma/client';
-import { isValidEmail } from '../helpers/validators';
-
-const fakeUser = [
-  { id: 1, username: 'tatendaZw', password: 'password' },
-  { id: 1, username: 'tatendaZw1', password: 'password123' },
-];
+import { comparePasswords, hashPassword } from '../helpers/hashing';
 
 @Injectable()
 export class AuthService {
   constructor(private jwtService: JwtService, private prisma: PrismaService) {}
 
-  async validateUser({ username, password, email }: AuthPayloadDto) {
+  // login user function
+  async validateUser(dto: AuthPayloadDto) {
     const userExists = await this.prisma.user.findFirst({
-      where: { email: email },
+      where: { username: dto.username },
     });
     if (!userExists) throw new ConflictException('User does not exist');
-    if (password === userExists.password) {
+
+    const pwdMatchs = await comparePasswords(userExists.password, dto.password);
+
+    if (pwdMatchs) {
       // do login auth
-      const { password, ...user } = userExists;
-      return this.jwtService.sign(user);
+      delete userExists.password;
+      return this.jwtService.sign(userExists);
     }
   }
 
-  async createUser(data: Prisma.UserCreateInput) {
-    if (!isValidEmail(data.email)) {
-      throw new BadRequestException('Invalid email format');
-    }
-
+  // register user function
+  async createUser(data: AuthPayloadDto) {
     const existingUser = await this.prisma.user.findUnique({
-      where: { email: data.email },
+      where: { username: data.username },
     });
 
     if (existingUser) {
       throw new ConflictException('User already exists');
     }
+    const hash = await hashPassword(data.password);
 
-    return this.prisma.user.create({
-      data,
+    const user = await this.prisma.user.create({
+      data: {
+        username: data.username,
+        password: hash,
+        email: data.email,
+      },
     });
+
+    delete user.password;
+
+    return user;
   }
 
   async getAllUsers() {

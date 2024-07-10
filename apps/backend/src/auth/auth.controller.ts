@@ -12,6 +12,7 @@ import { LocalGuard } from './guards/local.guard';
 import { Request } from 'express';
 import { JwtAuthGuard } from './guards/jwt.guard';
 import { Prisma } from '@prisma/client';
+import { AuthPayloadDto } from './dto';
 
 @Controller('auth')
 export class AuthController {
@@ -24,7 +25,7 @@ export class AuthController {
   }
 
   @Post('register')
-  async createUser(@Body() userData: Prisma.UserCreateInput) {
+  async createUser(@Body() userData: AuthPayloadDto) {
     return this.authService.createUser(userData);
   }
 
