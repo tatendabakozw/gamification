@@ -13,7 +13,7 @@ export class AuthService {
 
   valdateUser({ username, password }: AuthPayloadDto) {
     const userExists = fakeUser.find((user) => user.username === username); // replace with database query
-    if (userExists) return null;
+    if (!userExists) return null;
     if (password === userExists.password) {
       // do login auth
       const { password, ...user } = userExists;

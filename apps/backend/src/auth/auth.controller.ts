@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, HttpException, Post } from '@nestjs/common';
 import { AuthPayloadDto } from './dto/auth.dto';
 import { AuthService } from './auth.service';
 
@@ -8,6 +8,8 @@ export class AuthController {
 
   @Post('login')
   login(@Body() authPayload: AuthPayloadDto) {
-    return this.authService.valdateUser(authPayload);
+    const user = this.authService.valdateUser(authPayload);
+    if (!user) throw new HttpException('Invalid Credentials', 401);
+    return user;
   }
 }
