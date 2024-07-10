@@ -11,7 +11,9 @@ export class AuthService {
   // login user function
   async validateUser(dto: AuthPayloadDto) {
     const userExists = await this.prisma.user.findFirst({
-      where: { username: dto.username },
+      where: {
+        OR: [{ username: dto.username }, { email: dto.email }],
+      },
     });
     if (!userExists) throw new ConflictException('User does not exist');
 
@@ -26,8 +28,10 @@ export class AuthService {
 
   // register user function
   async createUser(data: AuthPayloadDto) {
-    const existingUser = await this.prisma.user.findUnique({
-      where: { username: data.username },
+    const existingUser = await this.prisma.user.findFirst({
+      where: {
+        OR: [{ username: data.username }, { email: data.email }],
+      },
     });
 
     if (existingUser) {

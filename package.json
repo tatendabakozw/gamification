@@ -2,7 +2,12 @@
   "name": "@gamification/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "prisma:dev:deploy": "npx prisma migrate deploy",
+    "db:dev:rm": "docker compose rm dev-db -s -f -v",
+    "db:dev:up": "docker compose up dev-db -d",
+    "db:dev:restart": "npm run db:dev:rm && npm run db:dev:up && sleep 2 && npx prisma migrate deploy"
+  },
   "private": true,
   "dependencies": {
     "@expo/metro-config": "~0.18.1",

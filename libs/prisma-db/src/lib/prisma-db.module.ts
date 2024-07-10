@@ -1,8 +1,9 @@
 // prisma-db.module.ts or equivalent
 
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { PrismaService } from './prisma.service'; // Adjust the path as necessary
 
+@Global()
 @Module({
   providers: [PrismaService],
   exports: [PrismaService], // Ensure PrismaService is exported
