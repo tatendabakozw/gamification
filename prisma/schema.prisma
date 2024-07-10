@@ -21,3 +21,17 @@ model Product {
   updatedAt DateTime? @updatedAt()
   @@map("products")
 }
+
+model User {
+  id        Int       @id @default(autoincrement())
+  username  String    @db.VarChar() @unique
+  email     String    @unique
+  password  String
+  otp       String?   // Optional OTP field
+  profilePic String?  // Optional profile picture field
+  name      String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt()
+
+  @@map("users")
+}
