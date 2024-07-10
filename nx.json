@@ -35,7 +35,27 @@
         "targetName": "test"
       },
       "exclude": ["apps/backend-e2e/**/*"]
+    },
+    {
+      "plugin": "@nx/expo/plugin",
+      "options": {
+        "startTargetName": "start",
+        "buildTargetName": "build",
+        "prebuildTargetName": "prebuild",
+        "serveTargetName": "serve",
+        "installTargetName": "install",
+        "exportTargetName": "export",
+        "submitTargetName": "submit",
+        "runIosTargetName": "run-ios",
+        "runAndroidTargetName": "run-android"
+      }
     }
   ],
-  "nxCloudAccessToken": "NmYzOGU5M2EtNzMyNS00YzAwLWE0MzMtNjY2ZDhkN2NiYmM5fHJlYWQtd3JpdGU="
+  "nxCloudAccessToken": "NmYzOGU5M2EtNzMyNS00YzAwLWE0MzMtNjY2ZDhkN2NiYmM5fHJlYWQtd3JpdGU=",
+  "targetDefaults": {
+    "e2e": {
+      "cache": true,
+      "inputs": ["default", "^production"]
+    }
+  }
 }
