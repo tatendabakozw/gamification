@@ -12,7 +12,7 @@ export class AuthService {
   async validateUser(dto: AuthPayloadDto) {
     const userExists = await this.prisma.user.findFirst({
       where: {
-        OR: [{ username: dto.username }, { email: dto.email }],
+        OR: [{ username: dto.username }],
       },
     });
     if (!userExists) throw new ConflictException('User does not exist');

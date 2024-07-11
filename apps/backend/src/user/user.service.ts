@@ -1,5 +1,6 @@
 import { PrismaService } from '@gamification/prisma-db';
 import { Injectable } from '@nestjs/common';
+import { UserDto } from './dto/user.dto';
 
 @Injectable()
 export class UserService {
@@ -10,9 +11,13 @@ export class UserService {
     // edit user login goes here
   }
 
-  // delete user
-  async deleteSingleUser() {
-    // delete user login goes here
+  async deleteSingleUser(user: UserDto) {
+    await this.prisma.user.delete({
+      where: {
+        email: user.email,
+      },
+    });
+    return { message: 'User deleted Successfully!' };
   }
 
   // get all users
@@ -25,7 +30,7 @@ export class UserService {
         profilePic: true,
         createdAt: true,
       },
-    }); // delete user login goes here
+    });
   }
 
   // get single user
