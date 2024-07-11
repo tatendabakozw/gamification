@@ -20,15 +20,23 @@ export class GigService {
   // delete a git
   // DELETE request
   // /api/git/delete/:id
-  async deleteGigService() {
-    return;
+  async deleteGigService(id: number) {
+    await this.prisma.user.delete({
+      where: {
+        id: id,
+      },
+    });
+    return { message: 'Gig deleted Successfully!' };
   }
   // get all user gigs
   async getAllGigsService() {
     return await this.prisma.gig.findMany({});
   }
   // get single gig
-  async getSingleGigService() {
-    return;
+  async getSingleGigService(id: number) {
+    const user = await this.prisma.user.findUnique({
+      where: { id },
+    });
+    return user;
   }
 }

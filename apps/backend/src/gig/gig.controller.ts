@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { GigService } from './gig.service';
 import { CreateGigDto } from './dto/gig.dto';
 
@@ -16,7 +25,7 @@ export class GigController {
   // edit available gig
   // PUT request
   // api/git/edit/id
-  @Patch('add')
+  @Patch('edit/:id')
   async editGig() {
     return this.gigService.editGigService();
   }
@@ -24,8 +33,8 @@ export class GigController {
   // DELETE request
   // /api/git/delete/:id
   @Delete('delete')
-  async deleteGig() {
-    return this.gigService.deleteGigService();
+  async deleteGig(@Param('id', ParseIntPipe) id: number) {
+    return this.gigService.deleteGigService(id);
   }
 
   // get all gigs
@@ -35,8 +44,8 @@ export class GigController {
   async getAllGigs() {
     return this.gigService.getAllGigsService();
   }
-  // get single gig
-  async getSingleGig() {
-    return this.gigService.getSingleGigService();
+  @Get(':id')
+  async getSingleGig(@Param('id', ParseIntPipe) id: number) {
+    return this.gigService.getSingleGigService(id);
   }
 }

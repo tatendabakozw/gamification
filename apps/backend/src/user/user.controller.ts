@@ -52,7 +52,7 @@ export class UserController {
   // GET reqest
   // /api/user/:id
   @Get(':id')
-  async getUserById(@Param('id') id: string) {
-    return this.userService.getSingleUser(Number(id));
+  async getUserById(@Param('id', ParseIntPipe) id: number) {
+    return this.userService.getSingleUser(id);
   }
 }
