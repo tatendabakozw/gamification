@@ -12,7 +12,7 @@ import {
 import { UserService } from './user.service';
 import { Request } from 'express';
 import { JwtAuthGuard } from '../auth/guards/jwt.guard';
-import { UpdateUserDto, UserDto } from './dto/user.dto';
+import { UpdateUserDto } from './dto/user.dto';
 
 @Controller('user')
 export class UserController {

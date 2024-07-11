@@ -35,3 +35,16 @@ model User {
 
   @@map("users")
 }
+
+model Gig {
+  id        Int       @id @default(autoincrement())
+  name      String    
+  price     String?   @unique
+  desc      String
+  category  String?   
+  image     String?  // Optional profile picture field
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt()
+
+  @@map("gigs")
+}
