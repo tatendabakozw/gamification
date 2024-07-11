@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
+import { GigDto } from './dto/gig.dto';
 
 @Injectable()
 export class GigService {
   // add a gig
-  async addGigService() {
+  async addGigService(dto: GigDto) {
     return;
   }
 
