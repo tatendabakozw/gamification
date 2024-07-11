@@ -1,27 +1,29 @@
-import { IsString } from 'class-validator';
+import { IsString, IsOptional, IsDateString } from 'class-validator';
 
-export class GigDto {
-  @IsString()
-  id: number;
-
+export class CreateGigDto {
   @IsString()
   name: string;
 
   @IsString()
+  @IsOptional()
   price?: string;
 
   @IsString()
-  desc?: string;
+  desc: string;
 
   @IsString()
+  @IsOptional()
   category?: string;
 
   @IsString()
-  image?: string; // Optional profile picture field
+  @IsOptional()
+  image?: string;
 
-  @IsString()
-  createdAt?: any;
+  @IsDateString()
+  @IsOptional()
+  createdAt?: Date;
 
-  @IsString()
-  updatedAt?: any;
+  @IsDateString()
+  @IsOptional()
+  updatedAt?: Date;
 }
