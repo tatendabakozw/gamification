@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Patch, Post } from '@nestjs/common';
 import { GigService } from './gig.service';
 import { CreateGigDto } from './dto/gig.dto';
 
@@ -27,7 +27,11 @@ export class GigController {
   async deleteGig() {
     return this.gigService.deleteGigService();
   }
-  // get all user gigs
+
+  // get all gigs
+  // GET request
+  // /api/gig/all
+  @Get('all')
   async getAllGigs() {
     return this.gigService.getAllGigsService();
   }

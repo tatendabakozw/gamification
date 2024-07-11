@@ -39,7 +39,7 @@ model User {
 model Gig {
   id        Int       @id @default(autoincrement())
   name      String    
-  price     String?   @unique
+  price     String?  
   desc      String
   category  String?   
   image     String?  // Optional profile picture field

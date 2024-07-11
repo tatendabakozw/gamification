@@ -25,7 +25,7 @@ export class GigService {
   }
   // get all user gigs
   async getAllGigsService() {
-    return;
+    return await this.prisma.gig.findMany({});
   }
   // get single gig
   async getSingleGigService() {
