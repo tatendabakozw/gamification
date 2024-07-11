@@ -1,14 +1,17 @@
 import { PrismaService } from '@gamification/prisma-db';
 import { Injectable } from '@nestjs/common';
-import { UserDto } from './dto/user.dto';
+import { UpdateUserDto, UserDto } from './dto/user.dto';
 
 @Injectable()
 export class UserService {
   constructor(private prisma: PrismaService) {}
 
   // edit user info
-  async editSingleUser() {
-    // edit user login goes here
+  async editSingleUser(id: number, updateUserDto: UpdateUserDto) {
+    return this.prisma.user.update({
+      where: { id },
+      data: updateUserDto,
+    });
   }
 
   async deleteSingleUser(user: UserDto) {
