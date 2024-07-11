@@ -29,11 +29,6 @@ export class AuthController {
     return this.authService.createUser(userData);
   }
 
-  @Get(':id')
-  async getUser(@Param('id') id: number) {
-    return this.authService.getUserById(id);
-  }
-
   @Get('all')
   async getAllUsers() {
     return this.authService.getAllUsers();
