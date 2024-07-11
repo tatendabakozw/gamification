@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Patch, Post } from '@nestjs/common';
 import { GigService } from './gig.service';
-import { GigDto } from './dto/gig.dto';
+import { CreateGigDto } from './dto/gig.dto';
 
 @Controller('gig')
 export class GigController {
@@ -10,7 +10,7 @@ export class GigController {
   // POST request
   // /api/gig/add
   @Post('add')
-  async addGig(@Body() dto: GigDto) {
+  async addGig(@Body() dto: CreateGigDto) {
     return this.gigService.addGigService(dto);
   }
   // edit available gig
