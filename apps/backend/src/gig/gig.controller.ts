@@ -8,8 +8,8 @@ export class GigController {
 
   // add a gig
   // POST request
-  // /api/gig/add
-  @Post('add')
+  // /api/gig/create
+  @Post('create')
   async addGig(@Body() dto: CreateGigDto) {
     return this.gigService.addGigService(dto);
   }

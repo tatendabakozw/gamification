@@ -1,11 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { CreateGigDto } from './dto/gig.dto';
+import { PrismaService } from '@gamification/prisma-db';
 
 @Injectable()
 export class GigService {
+  constructor(private prisma: PrismaService) {}
   // add a gig
   async addGigService(dto: CreateGigDto) {
-    return;
+    return this.prisma.gig.create({
+      data: dto,
+    });
   }
 
   // add a gig
