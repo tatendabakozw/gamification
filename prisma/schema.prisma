@@ -33,6 +33,8 @@ model User {
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt()
 
+  userGigs   UserGig[]
+
   @@map("users")
 }
 
@@ -40,11 +42,31 @@ model Gig {
   id        Int       @id @default(autoincrement())
   name      String    
   price     String?  
+  difficult String
   desc      String
   category  String?   
   image     String?  // Optional profile picture field
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt()
 
+  userGigs  UserGig[]
+
+
   @@map("gigs")
+}
+
+model UserGig{
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt()
+  
+  userId    Int
+  user      User      @relation(fields: [userId], references: [id])
+  
+  gigId     Int
+  gig       Gig       @relation(fields: [gigId], references: [id])
+
+  @@unique([userId, gigId])
+
+  @@map("user_gigs")
 }

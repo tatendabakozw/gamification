@@ -9,6 +9,9 @@ export class CreateGigDto {
   price?: string;
 
   @IsString()
+  difficult: string;
+
+  @IsString()
   desc: string;
 
   @IsString()
