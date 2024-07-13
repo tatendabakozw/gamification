@@ -26,6 +26,11 @@ export class AuthService {
     }
   }
 
+  async generateJwtToken(user: any) {
+    const payload = { username: user.username, sub: user.userId };
+    return this.jwtService.sign(payload);
+  }
+
   // register user function
   async createUser(data: AuthPayloadDto) {
     const existingUser = await this.prisma.user.findFirst({

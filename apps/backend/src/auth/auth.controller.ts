@@ -4,6 +4,7 @@ import { LocalGuard } from './guards/local.guard';
 import { Request } from 'express';
 import { JwtAuthGuard } from './guards/jwt.guard';
 import { AuthPayloadDto } from './dto';
+import { GetUser } from '../helpers/getUser';
 
 @Controller('auth')
 export class AuthController {
@@ -11,8 +12,8 @@ export class AuthController {
 
   @Post('login')
   @UseGuards(LocalGuard)
-  login(@Req() req: Request) {
-    return req.user;
+  login(@GetUser() user) {
+    return { message: 'Login succesful', user };
   }
 
   @Post('register')

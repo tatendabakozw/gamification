@@ -1,18 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '@gamification/prisma-db';
 import { CreateUserGigDto } from './dto/create-user.gig.dto';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class UserGigsService {
   constructor(private prisma: PrismaService) {}
 
   async create(data: CreateUserGigDto) {
-    console.log('data in user gig creation: ', data);
     const intUser = parseInt(data.userId.toString());
-
-    if (!data.userId) {
-      throw new NotFoundException(`User ID not provided!`);
-    }
 
     const gig = await this.prisma.gig.findUnique({
       where: { id: data.gigId },
@@ -30,19 +26,33 @@ export class UserGigsService {
     });
   }
 
+  async findGigsByUser(userId: number) {
+    return this.prisma.userGig.findMany({
+      where: { userId },
+      include: { gig: true },
+    });
+  }
+
   findAll() {
-    return `This action returns all userGigs`;
+    return this.prisma.userGig.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} userGig`;
+  async findOne(id: number) {
+    return this.prisma.userGig.findUnique({
+      where: { id },
+    });
   }
 
-  update(id: number, updateUserGigDto: any) {
-    return `This action updates a #${id} userGig`;
+  async update(id: number, data: Prisma.UserGigUpdateInput) {
+    return this.prisma.userGig.update({
+      where: { id },
+      data,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} userGig`;
+  async remove(id: number) {
+    return this.prisma.userGig.delete({
+      where: { id },
+    });
   }
 }

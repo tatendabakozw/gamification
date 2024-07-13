@@ -1,4 +1,4 @@
-import { BadRequestException, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException } from '@nestjs/common';
 import * as argon2 from 'argon2';
 
 export async function hashPassword(text: string) {

@@ -23,6 +23,12 @@ export class UserGigsController {
     return this.userGigsService.create(createUserGigDto);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Get('my-gigs')
+  findUserGigs(@GetUser() user) {
+    return this.userGigsService.findGigsByUser(user.id);
+  }
+
   @Get()
   findAll() {
     return this.userGigsService.findAll();
