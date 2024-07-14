@@ -3,30 +3,21 @@ import {
   getFromLocalStorage,
   setLocalStorageItem,
 } from '../helpers/locaStorageMethods';
-
-// Define the types for the state
-interface CartItem {
-  _id: string;
-  // other properties of a cart item
-}
+import { UserInfoTypes } from '../utils/types';
 
 interface State {
   darkMode: boolean;
   access_token: string | null;
   refresh_token: string | null;
   search_query: string;
-  cart: {
-    cartItems: CartItem[];
-  };
-  userInfo?: any;
+
+  userInfo?: UserInfoTypes | null;
 }
 
 // Define the types for actions
 type Action =
   | { type: 'DARK_MODE_ON' }
   | { type: 'DARK_MODE_OFF' }
-  | { type: 'ADD_TO_CART'; payload: CartItem }
-  | { type: 'REMOVE_FROM_CART'; payload: CartItem }
   | { type: 'USER_LOGIN'; payload: any }
   | { type: 'USER_LOGOUT' }
   | { type: 'SET_SEARCH_QUERY'; payload: string };
@@ -43,9 +34,8 @@ const initialState: State = {
   access_token: getFromLocalStorage('access_token'),
   refresh_token: getFromLocalStorage('refresh_token'),
   search_query: '',
-  cart: {
-    cartItems: [],
-  },
+
+  userInfo: null,
 };
 
 // Create context
@@ -68,7 +58,7 @@ function reducer(state: State, action: Action): State {
       setLocalStorageItem('access_token', null);
       setLocalStorageItem('userInfo', null);
       setLocalStorageItem('refresh_token', null);
-      return { ...state, userInfo: null, cart: { cartItems: [] } };
+      return { ...state, userInfo: null };
     case 'SET_SEARCH_QUERY':
       return { ...state, search_query: action.payload };
     default:

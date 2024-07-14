@@ -5,7 +5,6 @@ import { apiUrl } from '../utils/apiUrl';
 import AlertMessage from '../components/alerts/AlertMessage';
 import { getMessage } from '../helpers/getMessage';
 import { Store } from '../context/Store';
-import { access } from 'fs';
 import { useRouter } from 'next/router';
 
 function Home() {
@@ -29,20 +28,25 @@ function Home() {
           Authorization: `Bearer ${data.user}`,
         },
       });
-      setMsg(getMessage(data));
-      dispatch({
-        type: 'USER_LOGIN',
-        payload: {
-          access_token: data.user,
-          refresh_token: data.user,
-          userInfo,
-        },
-      });
-      setErr('');
+      if (userInfo.role === 'ADMIN') {
+        setMsg(getMessage(data));
+        dispatch({
+          type: 'USER_LOGIN',
+          payload: {
+            access_token: data.user,
+            refresh_token: data.user,
+            userInfo,
+          },
+        });
+        setErr('');
+        setLoading(false);
+        setTimeout(() => {
+          router.push('/home');
+        }, 1500);
+      }
+      setErr('Not allowed');
+      setMsg('');
       setLoading(false);
-      setTimeout(() => {
-        router.push('/home');
-      }, 1500);
     } catch (error) {
       console.error(error);
       setErr(getMessage(error));
