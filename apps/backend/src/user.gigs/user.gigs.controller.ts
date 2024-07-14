@@ -1,3 +1,8 @@
+import { CreateUserGigDto } from './dto/create-user.gig.dto';
+import { updateUserGigDto } from './dto/update-user.gig.dto';
+import { JwtAuthGuard } from '../auth/guards/jwt.guard';
+import { UserGigsService } from './user.gigs.service';
+import { GetUser } from '../helpers/getUser';
 import {
   Controller,
   Get,
@@ -8,10 +13,6 @@ import {
   Delete,
   UseGuards,
 } from '@nestjs/common';
-import { UserGigsService } from './user.gigs.service';
-import { JwtAuthGuard } from '../auth/guards/jwt.guard';
-import { CreateUserGigDto } from './dto/create-user.gig.dto';
-import { GetUser } from '../helpers/getUser';
 
 @Controller('user.gigs')
 export class UserGigsController {
@@ -19,7 +20,7 @@ export class UserGigsController {
 
   @Post('create')
   @UseGuards(JwtAuthGuard)
-  create(@Body() createUserGigDto: CreateUserGigDto, @GetUser() user) {
+  create(@Body() createUserGigDto: CreateUserGigDto) {
     return this.userGigsService.create(createUserGigDto);
   }
 
@@ -40,7 +41,7 @@ export class UserGigsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserGigDto: any) {
+  update(@Param('id') id: string, @Body() updateUserGigDto: updateUserGigDto) {
     return this.userGigsService.update(+id, updateUserGigDto);
   }
 
