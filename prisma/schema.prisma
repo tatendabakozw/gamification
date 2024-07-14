@@ -13,6 +13,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  ADMIN
+  USER
+}
+
 model Product {
   id        Int       @unique @default(autoincrement())
   name      String    @db.VarChar() @unique
@@ -30,6 +35,7 @@ model User {
   otp       String?   // Optional OTP field
   profilePic String?  // Optional profile picture field
   name      String?
+  role      Role      @default(USER)  // Role field with default value USER
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt()
 
@@ -51,11 +57,10 @@ model Gig {
 
   userGigs  UserGig[]
 
-
   @@map("gigs")
 }
 
-model UserGig{
+model UserGig {
   id        Int       @id @default(autoincrement())
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt()

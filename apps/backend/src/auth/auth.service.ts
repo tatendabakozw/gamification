@@ -49,6 +49,7 @@ export class AuthService {
         username: data.username,
         password: hash,
         email: data.email,
+        role: 'USER',
       },
     });
 
