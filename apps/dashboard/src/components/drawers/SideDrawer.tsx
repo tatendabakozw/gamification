@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Sheet,
   SheetContent,
@@ -13,7 +14,7 @@ import { useState } from 'react';
 function SideDrawer() {
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState('');
-  const [price, setPrice] = useState('');
+  const [price, setPrice] = useState<number>(0);
   const [desc, setDesc] = useState('');
   const [category, setCategory] = useState('');
   const [difficult, setDifficult] = useState('');
@@ -46,26 +47,36 @@ function SideDrawer() {
           <div className="flex flex-col space-y-6 py-6">
             <input
               type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className="bg-zinc-50 p-2 rounded-xl border border-zinc-200/50"
               placeholder="Enter gig name"
             />
             <input
               type="number"
+              value={price}
+              onChange={(e: any) => setPrice(e.target.value)}
               className="bg-zinc-50 p-2 rounded-xl border border-zinc-200/50"
               placeholder="price"
             />
             <input
               type="text"
+              value={difficult}
+              onChange={(e) => setDifficult(e.target.value)}
               className="bg-zinc-50 p-2 rounded-xl border border-zinc-200/50"
               placeholder="Difficult"
             />
             <textarea
               rows={5}
               className="bg-zinc-50 p-2 rounded-xl border border-zinc-200/50"
+              value={desc}
+              onChange={(e) => setDesc(e.target.value)}
               placeholder="Description"
             />
             <input
               type="text"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
               className="bg-zinc-50 p-2 rounded-xl border border-zinc-200/50"
               placeholder="Category"
             />
