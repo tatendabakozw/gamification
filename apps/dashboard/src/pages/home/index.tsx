@@ -1,12 +1,5 @@
-import {
-  BanknotesIcon,
-  ClipboardDocumentIcon,
-  MagnifyingGlassIcon,
-  PlusCircleIcon,
-  UserGroupIcon,
-} from '@heroicons/react/24/outline';
-import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import { BanknotesIcon, UserGroupIcon } from '@heroicons/react/24/outline';
+import React from 'react';
 import GeneralLayout from '../../layout/GeneralLayout';
 import DashboarItem from '../../components/dashboard-item/DashboardItem';
 import Clock from '../../components/time-components/Clock';
@@ -14,8 +7,6 @@ import Calendar from '../../components/time-components/Calender';
 import Search from '../../components/search/Search';
 
 const Overview = () => {
-  const router = useRouter();
-
   const projects = [
     {
       name: 'Users',
@@ -50,13 +41,6 @@ const Overview = () => {
               items
             </p>
           </div>
-          <button
-            onClick={() => router.push('/inventory/create')}
-            className="add-new bg-zinc-900 dark:bg-white text-sm text-white dark:text-zinc-900 flex flex-row items-center space-x-4 rounded-lg font-medium p-2"
-          >
-            <PlusCircleIcon height={24} width={24} />
-            <p>Add New</p>
-          </button>
         </div>
         {/* search and filter */}
         <Search />

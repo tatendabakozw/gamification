@@ -15,7 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@gamification/prisma-db": ["libs/prisma-db/src/index.ts"]
+      "@gamification/prisma-db": ["libs/prisma-db/src/index.ts"],
+      "@gamification/shared": ["libs/shared/src/index.ts"],
+      "@gamification/shared/*": ["libs/shared/src/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

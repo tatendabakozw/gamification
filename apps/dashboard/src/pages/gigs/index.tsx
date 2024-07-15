@@ -3,6 +3,7 @@ import GeneralLayout from '../../layout/GeneralLayout';
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/router';
 import Search from '../../components/search/Search';
+import SideDrawer from '../../components/drawers/SideDrawer';
 
 function Gigs() {
   const router = useRouter();
@@ -18,13 +19,7 @@ function Gigs() {
               Manage all gigs on the pllatform
             </p>
           </div>
-          <button
-            onClick={() => router.push('/user/add')}
-            className="add-new bg-zinc-900  text-sm text-white  flex flex-row items-center space-x-4 rounded-lg font-medium p-2"
-          >
-            <PlusCircleIcon height={24} width={24} />
-            <p>Add New</p>
-          </button>
+          <SideDrawer />
         </div>
         <Search />
       </div>

@@ -29,7 +29,7 @@ function Search() {
   };
   return (
     <div className="flex flex-row items-center space-x-4 w-full bg-white p-2 border border-zinc-200/50 rounded-xl">
-      <div className="flex flex-row items-center flex-1 bg-primary main-border text-sm rounded-lg px-2 space-x-4">
+      <div className="flex flex-row items-center flex-1 bg-white main-border text-sm rounded-lg px-2 space-x-4">
         <MagnifyingGlassIcon height={20} width={20} className="text-zinc-400" />
         <input
           type="text"

@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@gamification/shared": ["libs/shared/src/index.ts"],
+      "@gamification/shared/*": ["libs/shared/src/*"]
+    }
+  }
+}

@@ -12,7 +12,7 @@ const DashboarItem = (props: DashboardItemProps) => {
 
   return (
     <div className="flex flex-col space-y-1 bg-white border border-zinc-200/50 rounded-xl">
-      <div className="bg-primary flex flex-row main-border gap-4 p-4 rounded-lg">
+      <div className="bg-white flex flex-row gap-4 p-4 rounded-lg">
         <div className="flex-1 flex flex-row items-center space-x-4">
           <div className="avatar h-10 w-10 flex-shrink-0 rounded-full bg-zinc-900 dark:bg-zinc-500 grid items-center justify-center content-center main-border">
             {<props.Icon height={24} width={24} className={'text-white'} />}
