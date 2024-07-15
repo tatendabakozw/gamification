@@ -1,12 +1,9 @@
 import React from 'react';
 import GeneralLayout from '../../layout/GeneralLayout';
-import { PlusCircleIcon } from '@heroicons/react/24/outline';
-import { useRouter } from 'next/router';
 import Search from '../../components/search/Search';
 import SideDrawer from '../../components/drawers/SideDrawer';
 
 function Gigs() {
-  const router = useRouter();
   return (
     <GeneralLayout>
       <div className="flex flex-col  w-full space-y-6 py-16 px-4 ">

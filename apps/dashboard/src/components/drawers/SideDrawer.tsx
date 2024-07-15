@@ -10,6 +10,10 @@ import {
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import CustomButton from '../buttons/CustomButton';
 import { useState } from 'react';
+import axios from 'axios';
+import { apiUrl } from '../../utils/apiUrl';
+import { getMessage } from '../../helpers/getMessage';
+import AlertMessage from '../alerts/AlertMessage';
 
 function SideDrawer() {
   const [loading, setLoading] = useState(false);
@@ -18,14 +22,27 @@ function SideDrawer() {
   const [desc, setDesc] = useState('');
   const [category, setCategory] = useState('');
   const [difficult, setDifficult] = useState('');
+  const [err, setErr] = useState('');
+  const [msg, setMsg] = useState('');
 
   const createNewGig = async () => {
     try {
       setLoading(true);
-      //create gig
+      const { data } = await axios.post(`${apiUrl}/gig/create`, {
+        name,
+        price,
+        desc,
+        category,
+        difficult,
+      });
+      setMsg(getMessage(data));
+      setErr('');
+      console.log(data);
       setLoading(false);
     } catch (error) {
       setLoading(false);
+      setErr(getMessage(error));
+      setMsg('');
     }
   };
   return (
@@ -112,7 +129,8 @@ function SideDrawer() {
                 <input id="dropzone-file" type="file" className="hidden" />
               </label>
             </div>
-
+            {err && <AlertMessage type="error" text={err.toString()} />}
+            {msg && <AlertMessage type="success" text={msg.toString()} />}
             <CustomButton
               loading={loading}
               onClick={createNewGig}
