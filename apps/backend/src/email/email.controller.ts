@@ -12,7 +12,7 @@ export class EmailController {
       await this.mailerService.sendEmail(
         'trewmane@gmail.com',
         'Test Email',
-        'This is a test email from NestJS using Mailtrap.'
+        'This is a test email from NestJS using Send grid.'
       );
       console.log('email send successfullyy');
       return { message: 'Email sent successfully' };

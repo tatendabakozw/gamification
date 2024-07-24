@@ -18,7 +18,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
           },
         },
         defaults: {
-          from: '"No Reply" <tatendabakozw@gmail.com>',
+          from: `"No Reply" <${config.get('EMAIL_SENDER')}>`,
         },
       }),
       inject: [ConfigService],

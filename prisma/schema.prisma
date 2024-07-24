@@ -20,42 +20,45 @@ enum Role {
 
 model Product {
   id        Int       @unique @default(autoincrement())
-  name      String    @db.VarChar() @unique
-  price     Int   
+  name      String    @unique @db.VarChar()
+  price     Int
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt()
+
   @@map("products")
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
-  username  String    @db.VarChar() @unique
-  email     String?   @unique
-  password  String
-  otp       String?   // Optional OTP field
-  profilePic String?  // Optional profile picture field
-  name      String?
-  role      Role      @default(USER)  // Role field with default value USER
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt()
+  id         Int       @id @default(autoincrement())
+  username   String    @unique @db.VarChar()
+  email      String?   @unique
+  password   String
+  otp        String? // Optional OTP field
+  profilePic String? // Optional profile picture field
+  name       String?
+  role       Role      @default(USER) // Role field with default value USER
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime? @updatedAt()
+  isVerified Boolean   @default(false)
+  verCode    Int
 
-  userGigs   UserGig[]
+  userGigs UserGig[]
 
   @@map("users")
 }
 
 model Gig {
   id        Int       @id @default(autoincrement())
-  name      String    
-  price     String?  
+  name      String
+  price     String?
   difficult String
   desc      String
-  category  String?   
-  image     String?  // Optional profile picture field
+  category  String?
+  image     String? // Optional profile picture field
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt()
 
-  userGigs  UserGig[]
+  userGigs UserGig[]
 
   @@map("gigs")
 }
@@ -64,14 +67,13 @@ model UserGig {
   id        Int       @id @default(autoincrement())
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt()
-  
-  userId    Int
-  user      User      @relation(fields: [userId], references: [id])
-  
-  gigId     Int
-  gig       Gig       @relation(fields: [gigId], references: [id])
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  gigId Int
+  gig   Gig @relation(fields: [gigId], references: [id])
 
   @@unique([userId, gigId])
-
   @@map("user_gigs")
 }
