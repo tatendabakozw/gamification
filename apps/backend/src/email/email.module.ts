@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 import { EmailService } from './email.service';
 import { EmailController } from './email.controller';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 
 @Module({
   imports: [
@@ -19,6 +20,13 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         },
         defaults: {
           from: `"No Reply" <${config.get('EMAIL_SENDER')}>`,
+        },
+        template: {
+          dir: __dirname + '/templates', // Path to your template directory
+          adapter: new HandlebarsAdapter(), // Use Handlebars adapter
+          options: {
+            strict: true,
+          },
         },
       }),
       inject: [ConfigService],
