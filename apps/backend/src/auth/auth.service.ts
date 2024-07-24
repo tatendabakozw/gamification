@@ -3,10 +3,16 @@ import { AuthPayloadDto } from './dto/auth.dto';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '@gamification/prisma-db';
 import { comparePasswords, hashPassword } from '../helpers/hashing';
+import { EmailService } from '../email/email.service';
+import { generateVerificationCode } from '../helpers/generateVerificationCode';
 
 @Injectable()
 export class AuthService {
-  constructor(private jwtService: JwtService, private prisma: PrismaService) {}
+  constructor(
+    private jwtService: JwtService,
+    private prisma: PrismaService,
+    private emailService: EmailService
+  ) {}
 
   // login user function
   async validateUser(dto: AuthPayloadDto) {
@@ -52,6 +58,11 @@ export class AuthService {
         role: 'USER',
       },
     });
+
+    const verCode = generateVerificationCode();
+
+    // Send verification email
+    await this.emailService.sendVerificationEmail(user.email, verCode);
 
     delete user.password;
 

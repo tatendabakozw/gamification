@@ -16,4 +16,6 @@ export class AuthPayloadDto {
   @IsOptional()
   @IsString()
   role?: string;
+
+  verCode?: string;
 }

@@ -3,10 +3,10 @@ import { Module } from '@nestjs/common';
 import { EmailService } from './email.service';
 import { EmailController } from './email.controller';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     MailerModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (config: ConfigService) => ({
@@ -21,13 +21,8 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
         defaults: {
           from: `"No Reply" <${config.get('EMAIL_SENDER')}>`,
         },
-        template: {
-          dir: __dirname + '/templates', // Path to your template directory
-          adapter: new HandlebarsAdapter(), // Use Handlebars adapter
-          options: {
-            strict: true,
-          },
-        },
+        preview: true, // Enable preview (optional)
+        logging: true,
       }),
       inject: [ConfigService],
     }),

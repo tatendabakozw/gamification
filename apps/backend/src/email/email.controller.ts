@@ -1,5 +1,6 @@
 import { Controller, HttpException, HttpStatus, Post } from '@nestjs/common';
 import { EmailService } from './email.service';
+import { generateVerificationCode } from '../helpers/generateVerificationCode';
 
 @Controller('mailer')
 export class EmailController {
@@ -11,8 +12,8 @@ export class EmailController {
       console.log('Attempting to sent email...');
       await this.mailerService.sendEmail(
         'trewmane@gmail.com',
-        'Test Email',
-        'This is a test email from NestJS using Send grid.'
+        'Verify Your email',
+        generateVerificationCode()
       );
       console.log('email send successfullyy');
       return { message: 'Email sent successfully' };
