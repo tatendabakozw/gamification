@@ -19,3 +19,9 @@ export class AuthPayloadDto {
 
   verCode?: string;
 }
+
+export class VerifyUserDto {
+  @IsString()
+  @IsNotEmpty()
+  verCode: string;
+}
