@@ -1,0 +1,43 @@
+{
+  "root": "apps/forms",
+  "sourceRoot": "apps/forms/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/next:build",
+      "options": {
+        "outputPath": "dist/apps/forms",
+        "root": "apps/forms",
+        "fileReplacements": []
+      },
+      "configurations": {
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/next:server",
+      "options": {
+        "buildTarget": "forms:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "forms:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/forms/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["coverage/apps/forms"],
+      "options": {
+        "jestConfig": "apps/forms/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  }
+}
