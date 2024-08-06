@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import GeneralLayout from '../../../layout/GeneralLayout';
 import {
   DevicePhoneMobileIcon,
@@ -7,12 +7,15 @@ import {
 } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/router';
 import useDocument from '../../../hooks/useDocument';
+import ToolTipButton from '../../../components/tooltip-button/ToolTipButton';
+import FormSection from '../../../components/form-section/FormSection';
 
 const SingleForm = () => {
   const router = useRouter();
   const { form_id } = router.query;
+  const [sectionValue, handleSectionValueChange] = useState('');
 
-  const { document, loading, error } = useDocument({
+  const { document, loading } = useDocument({
     collectionName: 'forms',
     id: form_id as string,
   });
@@ -31,18 +34,31 @@ const SingleForm = () => {
             </p>
           </div>
           <div className="flex flex-row items-center gap-2">
-            <button className="flex flex-row items-center bg-zinc-950 p-2 rounded-full capitalize font-medium text-white">
-              <DevicePhoneMobileIcon height={24} width={24} />
-            </button>
-            <button className="bg-zinc-950 rounded-full p-2 text-white">
-              <GlobeAltIcon height={24} width={24} />
-            </button>
+            <ToolTipButton text="Publish to mobile">
+              <div className="flex flex-row items-center bg-zinc-950 p-2 rounded-full capitalize font-medium text-white">
+                <DevicePhoneMobileIcon height={24} width={24} />
+              </div>
+            </ToolTipButton>
+            <ToolTipButton text="Publish to web">
+              <div className="bg-zinc-950 rounded-full p-2 text-white">
+                <GlobeAltIcon height={24} width={24} />
+              </div>
+            </ToolTipButton>
             <div className="flex flex-row items-center bg-zinc-950 p-2 rounded-full capitalize font-medium text-white">
               <PencilIcon height={24} width={24} />
             </div>
           </div>
         </div>
         {/* search and filter */}
+        {document?.sections.map((section) => (
+          <FormSection
+            section_type={section.type._id}
+            key={section.id}
+            handleSectionValueChange={sectionValue}
+            sectionValue={sectionValue}
+            options={section.options}
+          />
+        ))}
       </div>
     </GeneralLayout>
   );
