@@ -19,5 +19,24 @@ export interface DashboardItemProps {
   branch: string;
   status: string;
   Icon?: any;
-  _id?: any;
+  _id?: string | number;
+}
+
+export interface SectionType {
+  id: number;
+  options: Array<{ name: string; _id: string }>;
+  type: {
+    name: string;
+    _id: string;
+  };
+  value: string;
+}
+
+export interface FormType {
+  id: string;
+  form: {
+    description: string;
+    name: string;
+    sections: Array<SectionType>;
+  };
 }

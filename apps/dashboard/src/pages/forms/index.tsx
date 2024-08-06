@@ -1,45 +1,12 @@
-import { collection, getDocs } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import GeneralLayout from '../../layout/GeneralLayout';
-import { db } from '../../lib/firebase';
 import Search from '../../components/search/Search';
 import { ArrowPathIcon, LinkIcon, PlusIcon } from '@heroicons/react/24/outline';
 import FormItem from '../../components/form-item/FormItem';
+import useForms from '../../hooks/useForms';
 
 function Forms() {
-  const [forms, setForms] = useState<any>([]); // Add state for forms
-
-  const getAllForms = async () => {
-    const snapshot = await getDocs(collection(db, 'forms'));
-    const fetchedForms = snapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-    setForms(fetchedForms);
-  };
-
-  useEffect(() => {
-    getAllForms();
-  }, []);
-
-  console.log(forms);
-
-  const fake_forms = [
-    {
-      name: 'New form from',
-      description:
-        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi corporis earum omnis laudantium aliquam ex dolores inventore, aperiam cupiditate! Quae nulla distinctio atque cupiditate ea labore voluptatibus molestias velit soluta.',
-      image: '/form-images/multiple-choice.png',
-      duration: '5',
-      tech_used: [
-        { name: 'date picker', _id: 'ashj23' },
-        { name: 'multiple choice', _id: '8923jkj' },
-      ],
-      bg_color: 'bg-red-200',
-      cover: true,
-      _id: 'asj87',
-    },
-  ];
+  const { forms, loading, error } = useForms();
 
   const generateFormsLink = () => {
     const url = `${process.env.NEXT_PUBLIC_FORMS_URL}/?type=shared&id=190911`;
@@ -77,17 +44,13 @@ function Forms() {
         {/* search and filter */}
         <Search />
         <div className="max-w-7xl w-full mx-auto">
-          <div className=" flex-row flex-wrap grid md:grid-cols-2 grid-cols-1 gap-8 py-8">
-            {fake_forms.map((item) => (
+          {loading && <div>loading</div>}
+          {error && <div>errrrrr</div>}
+          <div className=" flex-row flex-wrap grid md:grid-cols-3 grid-cols-1 gap-8 py-8">
+            {forms.map((item) => (
               <FormItem
-                tech_used={item.tech_used}
-                key={item._id}
-                cover={item.cover}
-                bg_color={item.bg_color}
-                description={item.description}
-                duration={item.duration}
-                name={item.name}
-                image={item.image}
+                key={item.id}
+                item={item} // Spread the properties to match the FormItem props
               />
             ))}
           </div>
