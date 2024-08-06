@@ -48,10 +48,10 @@ function SideDrawer() {
   return (
     <Sheet>
       <SheetTrigger>
-        <button className="add-new bg-zinc-900  text-sm text-white  flex flex-row items-center space-x-4 rounded-lg font-medium p-2">
+        <div className="add-new bg-zinc-900  text-sm text-white  flex flex-row items-center space-x-4 rounded-lg font-medium p-2">
           <PlusCircleIcon height={24} width={24} />
           <p>Add New</p>
-        </button>
+        </div>
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>

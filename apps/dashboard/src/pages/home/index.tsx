@@ -5,6 +5,7 @@ import DashboarItem from '../../components/dashboard-item/DashboardItem';
 import Clock from '../../components/time-components/Clock';
 import Calendar from '../../components/time-components/Calender';
 import Search from '../../components/search/Search';
+import Link from 'next/link';
 
 const Overview = () => {
   const projects = [
@@ -41,6 +42,12 @@ const Overview = () => {
               items
             </p>
           </div>
+          <Link
+            href={'/forms'}
+            className="flex flex-row items-center bg-zinc-950 px-4 py-2 rounded-xl capitalize font-medium text-white"
+          >
+            forms
+          </Link>
         </div>
         {/* search and filter */}
         <Search />
