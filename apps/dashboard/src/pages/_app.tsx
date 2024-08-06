@@ -7,7 +7,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Welcome to dashboard!</title>
+        <title>Dashboard | Afrisight Research</title>
       </Head>
       <main className="app">
         <StoreProvider>

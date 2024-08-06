@@ -27,9 +27,12 @@ function Forms() {
             </p>
           </div>
           <div className="flex flex-row items-center gap-2">
-            <div className="flex flex-row items-center bg-zinc-950 p-2 rounded-full capitalize font-medium text-white">
+            <button
+              onClick={generateFormsLink}
+              className="flex flex-row items-center bg-zinc-950 p-2 rounded-full capitalize font-medium text-white"
+            >
               <PlusIcon height={24} width={24} />
-            </div>
+            </button>
             <button
               onClick={generateFormsLink}
               className="bg-zinc-950 rounded-full p-2 text-white"
@@ -44,9 +47,17 @@ function Forms() {
         {/* search and filter */}
         <Search />
         <div className="max-w-7xl w-full mx-auto">
-          {loading && <div>loading</div>}
-          {error && <div>errrrrr</div>}
-          <div className=" flex-row flex-wrap grid md:grid-cols-3 grid-cols-1 gap-8 py-8">
+          {loading && (
+            <div className="text-center w-full h-96 justify-center flex items-center">
+              loading...
+            </div>
+          )}
+          {error && (
+            <div className="text-center w-full h-96 justify-center flex items-center">
+              {error}
+            </div>
+          )}
+          <div className=" flex-row grid md:grid-cols-4 gap-8 grid-cols-1">
             {forms.map((item) => (
               <FormItem
                 key={item.id}

@@ -32,11 +32,13 @@ export interface SectionType {
   value: string;
 }
 
+export interface DocumentType {
+  description: string;
+  name: string;
+  sections: Array<SectionType>;
+}
+
 export interface FormType {
   id: string;
-  form: {
-    description: string;
-    name: string;
-    sections: Array<SectionType>;
-  };
+  form: DocumentType;
 }
